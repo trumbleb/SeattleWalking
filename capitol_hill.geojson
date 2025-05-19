@@ -1,0 +1,480 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3134,
+          47.6371
+        ]
+      },
+      "properties": {
+        "place_id": 1,
+        "name": "Louisa Boren Park",
+        "location_description": "Start/End point, 15th Avenue E and E Garfield Street, eastern edge of the park",
+        "relative_distance": "start",
+        "sense_of_place_type": "history",
+        "sense_explanation": "nature",
+        "rhetorical_usage": "hidden little treasure, great views out to Lake Washington, Union Bay, and the Cascade Mountains"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.318,
+          47.6406
+        ]
+      },
+      "properties": {
+        "place_id": 2,
+        "name": "Grand Army of the Republic Cemetery",
+        "location_description": "North side of E Howe Street, west of 15th Ave E, east of Federal Ave E",
+        "relative_distance": "short walk",
+        "sense_of_place_type": "history",
+        "sense_explanation": "memory",
+        "rhetorical_usage": "cemetery for Union veterans, 526 graves"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3275,
+          47.6395
+        ]
+      },
+      "properties": {
+        "place_id": 3,
+        "name": "Streissguth Gardens",
+        "location_description": "Off E Blaine Street, between Federal Ave E and 10th Ave E, reached by descending steps",
+        "relative_distance": "short walk",
+        "sense_of_place_type": "nature",
+        "sense_explanation": "urban oasis",
+        "rhetorical_usage": "little urban oasis"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3256,
+          47.6386
+        ]
+      },
+      "properties": {
+        "place_id": 4,
+        "name": "Former John and Eliza Leary House (Office of the Bishop)",
+        "location_description": "East side of 10th Avenue E, between E Blaine St and E Highland Dr",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "architecture",
+        "rhetorical_usage": "grand building, lovely sandstone, famous features like Tiffany windows (formerly)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3256,
+          47.6383
+        ]
+      },
+      "properties": {
+        "place_id": 5,
+        "name": "Former Pierre Ferry House",
+        "location_description": "Next door south of the Former Leary House on 10th Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "art",
+        "rhetorical_usage": "area historically known as \"owl hollow\", features carved wooden owls and sculptures"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.322,
+          47.636
+        ]
+      },
+      "properties": {
+        "place_id": 6,
+        "name": "Former Sam Hill Mansion",
+        "location_description": "North side of E Highland Drive, west of Broadway E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "architecture",
+        "rhetorical_usage": "built in 1908, featured rooftop garden, in-room telephones, 10ft thick walls"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3226,
+          47.6328
+        ]
+      },
+      "properties": {
+        "place_id": 7,
+        "name": "Former Horace Chapin Henry Property (Future Public Space)",
+        "location_description": "Northwest corner of Harvard Avenue E and E Prospect Street",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "transformation",
+        "rhetorical_usage": "originally a 1.6-acre estate, future public space"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3215,
+          47.6315
+        ]
+      },
+      "properties": {
+        "place_id": 8,
+        "name": "Harvard-Belmont Historic District",
+        "location_description": "Area roughly bounded by E Highland Drive, Belmont Avenue E, E Roy Street, and Broadway E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "architecture",
+        "rhetorical_usage": "heart of the federally and city designated district, premier location for wealthy homes"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3209,
+          47.6318
+        ]
+      },
+      "properties": {
+        "place_id": 9,
+        "name": "Garry Oak (Oregon White Oak)",
+        "location_description": "Corner of Belmont Place E and Belmont Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "nature",
+        "sense_explanation": "rarity",
+        "rhetorical_usage": "large and unusual tree, Washington's lone native oak, rare this far north"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3188,
+          47.6298
+        ]
+      },
+      "properties": {
+        "place_id": 10,
+        "name": "Former Nellie Cornish School Building (Kerry Hall)",
+        "location_description": "On E Roy Street, near Boylston Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "arts",
+        "rhetorical_usage": "original location of Cornish College of the Arts, building features names of famous artists"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3227,
+          47.6298
+        ]
+      },
+      "properties": {
+        "place_id": 11,
+        "name": "Daughters of the American Revolution (DAR) House",
+        "location_description": "East side of Harvard Avenue E on E Roy Street",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "architecture",
+        "rhetorical_usage": "copy of George Washington's home, Mount Vernon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3228,
+          47.6298
+        ]
+      },
+      "properties": {
+        "place_id": 12,
+        "name": "Small Public Space (SW corner Roy & Harvard)",
+        "location_description": "Southwest corner of E Roy Street and Harvard Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "art",
+        "sense_explanation": "literature",
+        "rhetorical_usage": "features benches with terra-cotta elements, tile with architectural drawing and quote"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3224,
+          47.6298
+        ]
+      },
+      "properties": {
+        "place_id": 13,
+        "name": "Former Woman's Century Club (Harvard Exit)",
+        "location_description": "Southeast corner of E Roy Street and Harvard Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "community",
+        "rhetorical_usage": "club founded in 1891, building housed Harvard Exit movie theater"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.32,
+          47.6298
+        ]
+      },
+      "properties": {
+        "place_id": 14,
+        "name": "Arthur Loveless Building",
+        "location_description": "On the north side of E Roy Street, east of Broadway E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "architecture",
+        "sense_explanation": "art",
+        "rhetorical_usage": "handsome two-story building, described as \"a little bit of England\", centered on a private courtyard"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3205,
+          47.6298
+        ]
+      },
+      "properties": {
+        "place_id": 15,
+        "name": "Frederick Anhalt Apartments",
+        "location_description": "Along E Roy Street, east of Broadway E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "architecture",
+        "sense_explanation": "history",
+        "rhetorical_usage": "elegant Capitol Hill apartments, French Norman-inspired elements"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.316,
+          47.6298
+        ]
+      },
+      "properties": {
+        "place_id": 16,
+        "name": "Maryland Apartments",
+        "location_description": "On E Roy Street, before reaching 13th Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "architecture",
+        "rhetorical_usage": "city-designated landmark built in 1910"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3138,
+          47.631
+        ]
+      },
+      "properties": {
+        "place_id": 17,
+        "name": "Millionaire's Row (14th Ave E)",
+        "location_description": "Along 14th Avenue E, starting at E Roy Street",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "wealth",
+        "rhetorical_usage": "known for Seattle's finest early 20th-century homes"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3138,
+          47.6298
+        ]
+      },
+      "properties": {
+        "place_id": 18,
+        "name": "Granite Hitching Post (Millionaire's Row)",
+        "location_description": "Southwest corner of E Roy Street and 14th Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "transportation",
+        "rhetorical_usage": "rare sign of early Seattle's equestrian history"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3138,
+          47.6313
+        ]
+      },
+      "properties": {
+        "place_id": 19,
+        "name": "Elbridge Amos Stuart Stepping Stone",
+        "location_description": "Southeast corner of E Valley Street and 14th Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "transportation",
+        "rhetorical_usage": "low granite block used for stepping from horse-drawn carriages"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3138,
+          47.6328
+        ]
+      },
+      "properties": {
+        "place_id": 20,
+        "name": "James A. Moore Mansion",
+        "location_description": "Southwest corner of E Aloha Street and 14th Avenue E",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "development",
+        "rhetorical_usage": "brick mansion built in 1903, home of Capitol Hill's developer"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3167,
+          47.63
+        ]
+      },
+      "properties": {
+        "place_id": 21,
+        "name": "Volunteer Park Water Tower (Stand Pipe)",
+        "location_description": "Within Volunteer Park, near E Prospect St and 14th Ave E",
+        "relative_distance": "within park",
+        "sense_of_place_type": "history",
+        "sense_explanation": "infrastructure",
+        "rhetorical_usage": "brick water tower built in 1906, observation area with views"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3167,
+          47.6306
+        ]
+      },
+      "properties": {
+        "place_id": 22,
+        "name": "Seattle Asian Art Museum (Former SAM)",
+        "location_description": "Within Volunteer Park, north of the Water Tower",
+        "relative_distance": "within park",
+        "sense_of_place_type": "art",
+        "sense_explanation": "history",
+        "rhetorical_usage": "original Seattle Art Museum, opened 1933, progressive design, now houses Asian Art"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3145,
+          47.6303
+        ]
+      },
+      "properties": {
+        "place_id": 23,
+        "name": "Volunteer Park Conservatory",
+        "location_description": "Within Volunteer Park, north of the Seattle Asian Art Museum",
+        "relative_distance": "within park",
+        "sense_of_place_type": "nature",
+        "sense_explanation": "architecture",
+        "rhetorical_usage": "opened in 1912, design based on London's Crystal Palace, houses extensive plant collection"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3134,
+          47.634
+        ]
+      },
+      "properties": {
+        "place_id": 24,
+        "name": "Concrete Trolley Retaining Wall",
+        "location_description": "Along 15th Avenue E, near Volunteer Park",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "transportation",
+        "rhetorical_usage": "remnant of the former streetcar system, blocks with holes where rails sat"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.314,
+          47.634
+        ]
+      },
+      "properties": {
+        "place_id": 25,
+        "name": "Lake View Cemetery",
+        "location_description": "West side of 15th Avenue E, opposite Volunteer Park",
+        "relative_distance": "along route",
+        "sense_of_place_type": "history",
+        "sense_explanation": "memory",
+        "rhetorical_usage": "one of the oldest and most diverse cemeteries, graves of early settlers and notable figures"
+      }
+    }
+  ]
+}

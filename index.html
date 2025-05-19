@@ -1,0 +1,410 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capitol Hill Story Map</title>
+
+    <!-- MapLibre GL JS CSS -->
+    <link href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars on the body */
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        #storymap-container {
+            display: flex;
+            height: 100vh; /* Use full viewport height */
+            width: 100vw;  /* Use full viewport width */
+        }
+
+        #sidebar {
+            width: 40%; /* Adjust width as needed, e.g., 500px */
+            overflow-y: auto; /* Enable vertical scrolling */
+            background-color: #f8f8f8;
+            padding: 20px;
+            box-sizing: border-box; /* Include padding in element's total width */
+            flex-shrink: 0; /* Prevent sidebar from shrinking */
+        }
+
+        #map {
+            flex-grow: 1; /* Map takes up remaining space */
+            height: 100%; /* Ensure map div takes full height of container */
+        }
+
+        /* Story point styling */
+        .story-point {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer; /* Indicate clickable */
+            transition: background-color 0.3s ease; /* Smooth highlight transition */
+        }
+
+        .story-point:last-child {
+            border-bottom: none; /* No border on the last item */
+            margin-bottom: 0;
+        }
+
+        .story-point h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #0056b3; /* Match marker color */
+        }
+
+        .story-point img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Ensure image doesn't have extra space below */
+            margin-bottom: 15px;
+            border-radius: 4px; /* Slightly rounded corners */
+        }
+
+        .story-point strong {
+            color: #555; /* Slightly darker for labels */
+        }
+
+        .story-point.active {
+            background-color: #e9e9e9; /* Highlight color */
+            padding: 20px; /* Adjust padding when active for visual separation */
+            margin: 0 -20px 40px; /* Use negative margin to occupy full sidebar width */
+        }
+
+         .story-point.active:last-child {
+             margin-bottom: 0; /* Correct margin for the last active item */
+         }
+
+
+        /* Map marker styling */
+        .marker {
+            background-color: #007bff; /* Primary blue color */
+            color: white;
+            border-radius: 50%; /* Make it round */
+            width: 28px; /* Size of the marker */
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer; /* Indicate clickable */
+            border: 3px solid white; /* White border */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Subtle shadow */
+            transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transitions */
+        }
+
+        .marker:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: scale(1.1); /* Slightly enlarge on hover */
+        }
+
+         .marker.active {
+            background-color: #004085; /* Even darker blue when active */
+            border-color: #ffc107; /* Highlight color border */
+            box-shadow: 0 0 8px rgba(0,0,0,0.5);
+        }
+
+        /* Basic responsiveness - could add media queries for smaller screens */
+        @media (max-width: 768px) {
+             #storymap-container {
+                 flex-direction: column; /* Stack on smaller screens */
+             }
+             #sidebar {
+                 width: 100%;
+                 height: 50vh; /* Sidebar takes half height */
+                 overflow-y: auto;
+             }
+             #map {
+                 width: 100%;
+                 height: 50vh; /* Map takes other half */
+             }
+             .story-point.active {
+                 margin: 0 0 40px 0; /* Adjust margins for stacked layout */
+             }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="storymap-container">
+        <div id="sidebar">
+            <!-- Story points will be loaded here by JavaScript -->
+            <p>Loading story data...</p>
+        </div>
+        <div id="map"></div>
+    </div>
+
+    <!-- MapLibre GL JS Script -->
+    <script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+
+    <script>
+        // === Configuration ===
+        // Base map style URL. This is a public demo style provided by MapLibre.
+        // You can replace this with other compatible styles (e.g., from Maptiler, Stadia Maps, etc.)
+        // that do not require an API key or for which you have an API key configured elsewhere.
+        const mapStyleUrl = 'https://demotiles.maplibre.org/style.json';
+
+        // Initial map view for Capitol Hill, Seattle
+        const initialMapCenter = [-122.3180, 47.6255]; // Approx. center of Capitol Hill
+        const initialMapZoom = 14;
+
+        // === Global Variables ===
+        let map;
+        let geojsonData;
+        const storyPoints = []; // Array to store references to sidebar elements
+        const markers = []; // Array to store references to map markers { marker: maplibre.Marker, element: HTMLDivElement, placeId: number }
+        let activePlaceId = null; // To keep track of the currently active story point/marker
+
+        // === Data Loading ===
+        async function loadData() {
+            try {
+                const response = await fetch('capitol_hill.geojson');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                geojsonData = await response.json();
+                // Sort features by place_id
+                geojsonData.features.sort((a, b) => a.properties.place_id - b.properties.place_id);
+                initMap();
+            } catch (error) {
+                console.error("Error loading GeoJSON data:", error);
+                const sidebar = document.getElementById('sidebar');
+                sidebar.innerHTML = "<p>Error loading story data. Please ensure 'capitol_hill.geojson' is in the same directory and is valid GeoJSON.</p>";
+                // Initialize map even if data loading fails, maybe just show the base map
+                 if (!map) {
+                     initMap();
+                 }
+            }
+        }
+
+        // === Map Initialization ===
+        function initMap() {
+            if (map) return; // Don't re-initialize if it already exists
+
+            map = new maplibregl.Map({
+                container: 'map', // container ID
+                style: mapStyleUrl, // style URL
+                center: initialMapCenter, // starting position [lng, lat]
+                zoom: initialMapZoom, // starting zoom
+                attributionControl: false // Hide default attribution if map style has its own
+            });
+
+            // Add navigation control (zoom buttons)
+            map.addControl(new maplibregl.NavigationControl(), 'top-right');
+            // Add attribution control manually if needed, or rely on style
+            map.addControl(new maplibregl.AttributionControl({
+                 compact: true,
+                 customAttribution: 'Data from capitol_hill.geojson' // Add custom attribution
+            }));
+
+
+            map.on('load', () => {
+                if (geojsonData) {
+                     buildStorySidebar();
+                     addMarkers();
+                     setupMapInteractions(); // Setup marker click listeners
+                     setupSidebarInteractions(); // Setup scroll and click listeners
+                     // Activate the first point initially
+                     if (storyPoints.length > 0) {
+                         activateStoryPoint(parseInt(storyPoints[0].dataset.placeId, 10));
+                     }
+                } else {
+                     console.warn("Map loaded, but no GeoJSON data available to add features.");
+                }
+            });
+
+             // Handle potential map errors
+             map.on('error', (e) => {
+                 console.error('Map error:', e.error);
+                 // Potentially display an error message on the map div
+             });
+        }
+
+        // === Sidebar Building ===
+        function buildStorySidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.innerHTML = ''; // Clear "Loading..."
+
+            geojsonData.features.forEach(feature => {
+                const properties = feature.properties;
+                const coords = feature.geometry.coordinates;
+                const placeId = properties.place_id;
+
+                const storyPointDiv = document.createElement('div');
+                storyPointDiv.className = 'story-point';
+                storyPointDiv.id = `story-point-${placeId}`; // Unique ID for linking
+
+                // Use a placeholder image. Replace with actual image logic if available.
+                // Example using place name for uniqueness:
+                const imageUrl = `https://via.placeholder.com/400x250?text=${encodeURIComponent(properties.name || 'Location '+ placeId)}`;
+
+                storyPointDiv.innerHTML = `
+                    <h3>${placeId}. ${properties.name || 'Unnamed Location'}</h3>
+                    <img src="${imageUrl}" alt="Image placeholder for ${properties.name || 'Location'}">
+                    <p><strong>Location:</strong> ${properties.location_description || 'No description'}</p>
+                    <p><strong>Sense of Place (${properties.sense_of_place_type || 'Unknown'}):</strong> ${properties.sense_explanation || 'No explanation'}</p>
+                    <p><strong>Rhetorical Usage:</strong> ${properties.rhetorical_usage || 'None provided'}</p>
+                `;
+
+                // Store coords and ID as data attributes for easy access
+                storyPointDiv.dataset.lng = coords[0];
+                storyPointDiv.dataset.lat = coords[1];
+                storyPointDiv.dataset.placeId = placeId;
+
+                sidebar.appendChild(storyPointDiv);
+                storyPoints.push(storyPointDiv); // Add to array for observer/linking
+            });
+        }
+
+        // === Marker Creation ===
+        function addMarkers() {
+            if (!map || !geojsonData) return;
+
+            geojsonData.features.forEach(feature => {
+                const properties = feature.properties;
+                const coords = feature.geometry.coordinates;
+                const placeId = properties.place_id;
+
+                // Create custom marker element
+                const el = document.createElement('div');
+                el.className = 'marker';
+                el.textContent = placeId;
+                el.dataset.placeId = placeId; // Link to sidebar
+
+                // Create the marker
+                const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' }) // Anchor at the bottom
+                    .setLngLat(coords)
+                    .addTo(map);
+
+                markers.push({ marker: marker, element: el, placeId: placeId }); // Store marker info
+            });
+        }
+
+        // === Interaction Logic ===
+
+        // Function to activate a story point and update map/markers
+        function activateStoryPoint(placeId) {
+             if (activePlaceId === placeId) return; // Already active
+
+             activePlaceId = placeId;
+
+             // Update active class on sidebar items
+             storyPoints.forEach(sp => {
+                 if (parseInt(sp.dataset.placeId, 10) === placeId) {
+                     sp.classList.add('active');
+                     // Ensure it's visible in sidebar when activated programmatically (e.g., from map click)
+                     sp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                 } else {
+                     sp.classList.remove('active');
+                 }
+             });
+
+             // Update active class on markers
+             markers.forEach(m => {
+                 if (m.placeId === placeId) {
+                     m.element.classList.add('active');
+                 } else {
+                     m.element.classList.remove('active');
+                 }
+             });
+
+             // Fly to the location if map is initialized
+             const feature = geojsonData.features.find(f => f.properties.place_id === placeId);
+             if (map && feature) {
+                  map.flyTo({
+                    center: feature.geometry.coordinates,
+                    essential: true, // this animation is considered essential
+                    speed: 0.8, // make the flying slower
+                    curve: 1, // change the speed curve
+                    easing: (t) => t, // disable easing
+                    // Optional: adjust zoom level for active point
+                    // zoom: 15 // Example: zoom in slightly on active point
+                });
+             }
+        }
+
+
+        function setupSidebarInteractions() {
+            const sidebar = document.getElementById('sidebar');
+
+            // Intersection Observer for scrolling
+            const observerOptions = {
+                root: sidebar, // Observe against the sidebar container
+                rootMargin: '0px',
+                threshold: [0.1, 0.5, 0.7, 0.9] // Trigger when parts of the element are visible
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                let maxRatio = 0;
+                let topIntersectingEntry = null;
+
+                // Find the entry that is most visible OR the first one from the top
+                // that is significantly visible (e.g., > 50%)
+                entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                         if (entry.intersectionRatio > maxRatio) {
+                             maxRatio = entry.intersectionRatio;
+                             topIntersectingEntry = entry;
+                         }
+                         // Alternative/Addition: prioritize items closer to the top of the view
+                         // This requires checking bounding rects relative to the root, which is more complex.
+                         // For now, let's stick to max ratio, it generally works well.
+                     }
+                });
+
+                if (topIntersectingEntry) {
+                    const placeId = parseInt(topIntersectingEntry.target.dataset.placeId, 10);
+                    // Only fly/activate if a *different* place_id becomes the most intersected
+                    // This prevents constant flying when scrolling within one section
+                    if (activePlaceId !== placeId) {
+                        activateStoryPoint(placeId);
+                    }
+                }
+                // Note: if scrolling very fast, it's possible no entry has a high ratio,
+                // or the max ratio entry doesn't change frequently. The current activation
+                // only happens when the *most* intersected item *changes*, which is good.
+
+            }, observerOptions);
+
+            // Start observing each story point
+            storyPoints.forEach(point => observer.observe(point));
+
+
+            // Click listener for sidebar items
+            storyPoints.forEach(point => {
+                point.addEventListener('click', () => {
+                    const placeId = parseInt(point.dataset.placeId, 10);
+                    activateStoryPoint(placeId); // Activate on click
+                    // The activateStoryPoint function includes scrolling into view
+                });
+            });
+        }
+
+        function setupMapInteractions() {
+             // Add click listener to each marker element
+             markers.forEach(m => {
+                 m.element.addEventListener('click', () => {
+                     const placeId = parseInt(m.element.dataset.placeId, 10);
+                     activateStoryPoint(placeId); // Activate on marker click
+                     // The activateStoryPoint function includes scrolling sidebar into view
+                 });
+             });
+        }
+
+
+        // === Initial Load ===
+        // Start the process by loading data
+        loadData();
+
+    </script>
+
+</body>
+</html>
+```
